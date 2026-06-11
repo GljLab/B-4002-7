@@ -4,6 +4,7 @@ export interface AuthUser {
   role: string
   nickname: string
   avatarUrl: string | null
+  readerLevel?: number | null
 }
 
 export interface LoginPayload {
@@ -285,4 +286,91 @@ export interface ImageDTO {
   height: number | null
   createdAt: string
   referencedPosts: PostSummary[] | null
+}
+
+export interface CaptchaDTO {
+  key: string
+  svgDataUrl: string
+}
+
+export interface RegisterReaderPayload {
+  username: string
+  password: string
+  captchaKey: string
+  captchaCode: string
+  nickname?: string
+  securityQuestion?: string
+  securityAnswer?: string
+}
+
+export interface ReaderProfileDTO {
+  id: number
+  username: string
+  nickname: string
+  avatarUrl: string | null
+  bio: string | null
+  role: string
+  readerLevel: number
+  readerExp: number
+  showFootprint: boolean
+  streakDays: number
+  readCount: number
+  favoriteCount: number
+  commentCount: number
+  subscriptionCount: number
+  maxCommentLength: number
+  commentIntervalSeconds: number
+}
+
+export interface ReaderPublicProfileDTO {
+  id: number
+  username: string
+  nickname: string
+  avatarUrl: string | null
+  bio: string | null
+  readerLevel: number
+  streakDays: number
+  readCount: number
+  favoriteCount: number
+  commentCount: number
+  subscriptionCount: number
+}
+
+export interface UpdateReaderProfilePayload {
+  nickname?: string
+  avatarUrl?: string
+  bio?: string
+  showFootprint?: boolean
+}
+
+export interface ReadHistoryItem {
+  id: number
+  userId: number
+  postId: number
+  readAt: string
+}
+
+export interface FavoriteItem {
+  id: number
+  userId: number
+  postId: number
+  createdAt: string
+}
+
+export interface SubscriptionItem {
+  id: number
+  readerId: number
+  authorId: number
+  createdAt: string
+}
+
+export interface SecurityQuestionDTO {
+  username: string
+  securityQuestion: string
+}
+
+export interface ResetPasswordPayload {
+  username: string
+  securityAnswer: string
+  newPassword: string
 }

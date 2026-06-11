@@ -64,12 +64,18 @@ public class SecurityConfig {
                     auth.requestMatchers(HttpMethod.GET, "/api/v1/images/**").permitAll();
                     auth.requestMatchers(HttpMethod.POST, "/api/v1/upload/image").authenticated();
                     auth.requestMatchers("/api/v1/auth/login", "/api/v1/token/login", "/api/v1/token/refresh").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/api/v1/reader/captcha").permitAll();
+                    auth.requestMatchers(HttpMethod.POST, "/api/v1/reader/register").permitAll();
+                    auth.requestMatchers(HttpMethod.POST, "/api/v1/reader/security-question").permitAll();
+                    auth.requestMatchers(HttpMethod.POST, "/api/v1/reader/reset-password").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/api/v1/reader/*").permitAll();
                     if (testingEnabled) {
                         auth.requestMatchers("/api/testing/**").permitAll();
                     }
                     auth.requestMatchers("/api/v1/token/secure/**").hasRole("TOKEN");
                     auth.requestMatchers("/api/v1/admin/**").hasRole("ADMIN");
                     auth.requestMatchers("/api/v1/author/**").hasRole("AUTHOR");
+                    auth.requestMatchers("/api/v1/reader/**").hasAnyRole("READER", "ADMIN");
                     auth.requestMatchers("/api/v1/auth/**").authenticated();
                     auth.anyRequest().denyAll();
                 })

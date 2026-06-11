@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import PostDetailView from '../views/PostDetailView.vue'
 import LoginView from '../views/LoginView.vue'
+import RegisterView from '../views/RegisterView.vue'
+import ForgotPasswordView from '../views/ForgotPasswordView.vue'
 import AdminView from '../views/AdminView.vue'
 import EditPostView from '../views/EditPostView.vue'
 import CategoryNavView from '../views/CategoryNavView.vue'
@@ -20,6 +22,8 @@ import AuthorStatsView from '../views/AuthorStatsView.vue'
 import AuthorSettingsView from '../views/AuthorSettingsView.vue'
 import AuthorProfileView from '../views/AuthorProfileView.vue'
 import AuthorImageView from '../views/AuthorImageView.vue'
+import ReaderProfileView from '../views/ReaderProfileView.vue'
+import ReaderSpaceView from '../views/ReaderSpaceView.vue'
 import { useAuthStore } from '../stores/auth'
 
 const router = createRouter({
@@ -31,6 +35,9 @@ const router = createRouter({
     { path: '/keywords', name: 'keywords', component: KeywordCloudView },
     { path: '/authors/:id', name: 'author-profile', component: AuthorProfileView },
     { path: '/login', name: 'login', component: LoginView },
+    { path: '/register', name: 'register', component: RegisterView },
+    { path: '/forgot-password', name: 'forgot-password', component: ForgotPasswordView },
+    { path: '/reader/:id', name: 'reader-space', component: ReaderSpaceView },
     // Admin routes
     { path: '/admin', name: 'admin', component: AdminView, meta: { requiresAuth: true, role: 'ADMIN' } },
     { path: '/admin/categories', name: 'admin-categories', component: AdminCategoryView, meta: { requiresAuth: true, role: 'ADMIN' } },
@@ -48,6 +55,8 @@ const router = createRouter({
     { path: '/author/images', name: 'author-images', component: AuthorImageView, meta: { requiresAuth: true, role: 'AUTHOR' } },
     { path: '/author/stats', name: 'author-stats', component: AuthorStatsView, meta: { requiresAuth: true, role: 'AUTHOR' } },
     { path: '/author/settings', name: 'author-settings', component: AuthorSettingsView, meta: { requiresAuth: true, role: 'AUTHOR' } },
+    // Reader routes
+    { path: '/reader', name: 'reader-profile', component: ReaderProfileView, meta: { requiresAuth: true, role: 'READER' } },
   ],
 })
 
@@ -60,11 +69,11 @@ router.beforeEach(async (to) => {
   }
 
   if (to.meta.role && authStore.userRole !== to.meta.role) {
-    return authStore.isAdmin ? { name: 'admin' } : authStore.isAuthor ? { name: 'author-dashboard' } : { name: 'login' }
+    return authStore.isAdmin ? { name: 'admin' } : authStore.isAuthor ? { name: 'author-dashboard' } : authStore.isReader ? { name: 'reader-profile' } : { name: 'login' }
   }
 
   if (to.name === 'login' && authStore.isLoggedIn) {
-    return authStore.isAdmin ? { name: 'admin' } : { name: 'author-dashboard' }
+    return authStore.isAdmin ? { name: 'admin' } : authStore.isAuthor ? { name: 'author-dashboard' } : authStore.isReader ? { name: 'reader-profile' } : { name: 'home' }
   }
 
   return true

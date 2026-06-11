@@ -10,6 +10,7 @@ const authStore = useAuthStore()
 const displayName = computed(() => authStore.displayName)
 const isAdmin = computed(() => authStore.isAdmin)
 const isAuthor = computed(() => authStore.isAuthor)
+const isReader = computed(() => authStore.isReader)
 
 async function logout() {
   await authStore.logout()
@@ -19,7 +20,7 @@ async function logout() {
 </script>
 
 <template>
-  <div class="app-shell" :class="{ 'author-theme': isAuthor }">
+  <div class="app-shell" :class="{ 'author-theme': isAuthor, 'reader-theme': isReader }">
     <header class="top-nav">
       <div class="top-nav-inner">
         <div class="brand" @click="$router.push('/')">简易博客</div>
@@ -43,6 +44,9 @@ async function logout() {
             <router-link class="nav-link" to="/author/images">图片管理</router-link>
             <router-link class="nav-link" to="/author/stats">个人统计</router-link>
             <router-link class="nav-link" to="/author/settings">个人设置</router-link>
+          </template>
+          <template v-if="isReader">
+            <router-link class="nav-link" to="/reader">个人空间</router-link>
           </template>
           <router-link v-if="!authStore.isLoggedIn" class="nav-link" to="/login">登录</router-link>
           <a v-if="authStore.isLoggedIn" class="nav-link" href="#" @click.prevent="logout">退出（{{ displayName }}）</a>

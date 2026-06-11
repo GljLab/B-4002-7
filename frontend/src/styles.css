@@ -699,7 +699,44 @@ a {
   background: #f0fdf4;
 }
 
-.author-shell {
+.reader-theme {
+  --color-primary: #8b5cf6;
+  --color-primary-strong: #7c3aed;
+  --color-primary-soft: #ede9fe;
+  --shadow-focus: 0 0 0 3px rgba(139, 92, 246, 0.22);
+  --el-color-primary: #8b5cf6;
+  --el-color-primary-light-3: #a78bfa;
+  --el-color-primary-light-5: #c4b5fd;
+  --el-color-primary-light-7: #ddd6fe;
+  --el-color-primary-dark-2: #7c3aed;
+}
+
+.reader-theme .top-nav {
+  border-bottom-color: rgba(196, 181, 253, 0.6);
+}
+
+.reader-theme .nav-link:hover {
+  color: #8b5cf6;
+  background: #ede9fe;
+}
+
+.reader-theme .nav-links .router-link-active,
+.reader-theme .nav-links .router-link-exact-active {
+  color: #8b5cf6;
+  background: #ede9fe;
+}
+
+.reader-theme .el-button--primary {
+  border-color: #8b5cf6;
+  background: linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%);
+}
+
+.reader-theme .el-button--primary:hover {
+  border-color: #6d28d9;
+  background: linear-gradient(135deg, #c4b5fd 0%, #8b5cf6 100%);
+}
+
+.reader-shell {
   gap: var(--space-4);
 }
 

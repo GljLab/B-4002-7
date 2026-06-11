@@ -5,6 +5,10 @@ public record AuthUserDTO(
         String username,
         String role,
         String nickname,
-        String avatarUrl
+        String avatarUrl,
+        Integer readerLevel
 ) {
+    public AuthUserDTO(Long id, String username, String role, String nickname, String avatarUrl) {
+        this(id, username, role, nickname, avatarUrl, null);
+    }
 }

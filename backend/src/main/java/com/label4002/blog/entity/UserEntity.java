@@ -50,6 +50,27 @@ public class UserEntity {
     @Column(name = "last_login_at")
     private LocalDateTime lastLoginAt;
 
+    @Column(name = "reader_level", nullable = false)
+    private int readerLevel = 1;
+
+    @Column(name = "reader_exp", nullable = false)
+    private int readerExp = 0;
+
+    @Column(name = "security_question", length = 200)
+    private String securityQuestion;
+
+    @Column(name = "security_answer", length = 255)
+    private String securityAnswer;
+
+    @Column(name = "show_footprint", nullable = false)
+    private boolean showFootprint = true;
+
+    @Column(name = "streak_days", nullable = false)
+    private int streakDays = 0;
+
+    @Column(name = "last_active_date")
+    private java.time.LocalDate lastActiveDate;
+
     public Long getId() {
         return id;
     }
@@ -140,5 +161,61 @@ public class UserEntity {
 
     public String getDisplayName() {
         return (nickname != null && !nickname.isBlank()) ? nickname : username;
+    }
+
+    public int getReaderLevel() {
+        return readerLevel;
+    }
+
+    public void setReaderLevel(int readerLevel) {
+        this.readerLevel = readerLevel;
+    }
+
+    public int getReaderExp() {
+        return readerExp;
+    }
+
+    public void setReaderExp(int readerExp) {
+        this.readerExp = readerExp;
+    }
+
+    public String getSecurityQuestion() {
+        return securityQuestion;
+    }
+
+    public void setSecurityQuestion(String securityQuestion) {
+        this.securityQuestion = securityQuestion;
+    }
+
+    public String getSecurityAnswer() {
+        return securityAnswer;
+    }
+
+    public void setSecurityAnswer(String securityAnswer) {
+        this.securityAnswer = securityAnswer;
+    }
+
+    public boolean isShowFootprint() {
+        return showFootprint;
+    }
+
+    public void setShowFootprint(boolean showFootprint) {
+        this.showFootprint = showFootprint;
+    }
+
+    public int getStreakDays() {
+        return streakDays;
+    }
+
+    public void setStreakDays(int streakDays) {
+        this.streakDays = streakDays;
+    }
+
+    public java.time.LocalDate getLastActiveDate() {
+        return lastActiveDate;
+    }
+
+    public void setLastActiveDate(java.time.LocalDate lastActiveDate) {
+        this.lastActiveDate = lastActiveDate;
     }
 }

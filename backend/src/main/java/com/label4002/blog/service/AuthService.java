@@ -6,6 +6,7 @@ import com.label4002.blog.dto.TokenRefreshRequest;
 import com.label4002.blog.dto.TokenResponse;
 import com.label4002.blog.entity.RefreshTokenEntity;
 import com.label4002.blog.entity.UserEntity;
+import com.label4002.blog.entity.UserRole;
 import com.label4002.blog.exception.NotFoundException;
 import com.label4002.blog.exception.UnauthorizedException;
 import com.label4002.blog.repository.RefreshTokenRepository;
@@ -88,12 +89,14 @@ public class AuthService {
         AppUserPrincipal principal = (AppUserPrincipal) authentication.getPrincipal();
         UserEntity refreshedUser = userRepository.findById(principal.getId())
                 .orElseThrow(() -> new NotFoundException("用户不存在"));
+        Integer readerLevel = refreshedUser.getRole() == UserRole.READER ? refreshedUser.getReaderLevel() : null;
         return new AuthUserDTO(
                 refreshedUser.getId(),
                 refreshedUser.getUsername(),
                 refreshedUser.getRole().name(),
                 refreshedUser.getDisplayName(),
-                refreshedUser.getAvatarUrl()
+                refreshedUser.getAvatarUrl(),
+                readerLevel
         );
     }
 
@@ -109,12 +112,14 @@ public class AuthService {
         }
         UserEntity user = userRepository.findById(principal.getId())
                 .orElseThrow(() -> new NotFoundException("用户不存在"));
+        Integer readerLevel = user.getRole() == UserRole.READER ? user.getReaderLevel() : null;
         return new AuthUserDTO(
                 user.getId(),
                 user.getUsername(),
                 user.getRole().name(),
                 user.getDisplayName(),
-                user.getAvatarUrl()
+                user.getAvatarUrl(),
+                readerLevel
         );
     }
 
